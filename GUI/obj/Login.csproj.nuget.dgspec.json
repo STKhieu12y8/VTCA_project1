@@ -1,0 +1,116 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\Login\\Login.csproj": {}
+  },
+  "projects": {
+    "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\ADMIN\\ADMIN.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\ADMIN\\ADMIN.csproj",
+        "projectName": "ADMIN",
+        "projectPath": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\ADMIN\\ADMIN.csproj",
+        "packagesPath": "C:\\Users\\Doanh\\.nuget\\packages\\",
+        "outputPath": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\ADMIN\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Doanh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\Login\\Login.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\Login\\Login.csproj",
+        "projectName": "Login",
+        "projectPath": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\Login\\Login.csproj",
+        "packagesPath": "C:\\Users\\Doanh\\.nuget\\packages\\",
+        "outputPath": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\Login\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Doanh\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\ADMIN\\ADMIN.csproj": {
+                "projectPath": "D:\\Object_Oriented_Analysis_&_Design\\ASM\\source_code\\ADMIN\\ADMIN.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
