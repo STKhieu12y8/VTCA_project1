@@ -100,7 +100,7 @@ namespace Obj_Item
             //this.status = status;
             if (status == "used")
             {
-                this.status = "Đã Thuê";
+                this.status = "Đang sử dụng";
             }
             else
             {
@@ -110,9 +110,13 @@ namespace Obj_Item
         public double[] GetBill()
         {
             Random random = new Random();
-            double[] result = { 1700, 300 };
-            result[0] = this.room_price + this.service_price * 3;
-            result[1] = this.electricity_price * Math.Floor(random.NextDouble() * 100) + this.water_price * Math.Floor(random.NextDouble() * 10);
+            double[] result = new double[3];
+            double number_electricity_used = Math.Floor(random.NextDouble()* 100);
+            double number_water_used = Math.Floor(random.NextDouble()* 10);
+            double total = this.room_price*3 + this.service_price*3 + this.electricity_price*number_electricity_used + this.water_price*number_water_used;
+            result[0] = number_electricity_used;
+            result[1] = number_water_used;
+            result[2] = total;
             return result;
         }
         public void Short_DL()
@@ -123,10 +127,10 @@ namespace Obj_Item
         {
             WriteLine("\n----------------------------------------------");
             WriteLine("Phòng: " + this.room_id);
-            WriteLine("\nGiá điện: {0, -4}k/số    Giá nước: {1, -4}k/khối    Giá dịch vụ: {2, -8}    Giá phòng: {3}k/phòng", this.electricity_price, this.water_price, this.service_price, this.room_price);
-            WriteLine("\nTình trạng phòng: đã thuê");
+            WriteLine($"\nGiá điện: {this.electricity_price} VNĐ/số    Giá nước: {this.water_price} VNĐ/khối    Giá dịch vụ: {this.service_price} VNĐ    Giá phòng: {this.room_price} VNĐ/phòng");
             WriteLine("\nNgày thuê: {0, -15} Ngày kết thúc: {1}", this.start_date, this.end_date);
-            WriteLine("\nTổng tiền: " + (GetBill()[0]+ GetBill()[1]) + "K\n");
+            WriteLine($"\nSố điện sử dụng: {GetBill()[0]}\t Số nước sử dụng: {GetBill()[1]}");
+            WriteLine($"\nTổng tiền: {GetBill()[2]} VNĐ\n");
         }
 
     }

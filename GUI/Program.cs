@@ -36,7 +36,7 @@ public class Program
                     }
                     else
                     {
-                        WriteLine("\nTài khoản không tồn tại !");
+                        WriteLine("\nTài khoản hoặc mật khẩu không đúng !");
                         System.Threading.Thread.Sleep(3000);
                         Clear();
                         i++;

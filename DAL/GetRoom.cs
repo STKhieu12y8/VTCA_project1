@@ -18,7 +18,7 @@ namespace DAL
             {
                 while (result.Read())
                 {
-                    list_room.Add(new Room(result.GetString("rom_id"), result.GetString("start_date"), result.GetString("end_date"), result.GetDouble("e_price"), result.GetDouble("w_price"), result.GetDouble("s_price"), result.GetDouble("r_price"), result.GetString("status")));
+                    list_room.Add(new Room(result.GetString("room_id"), result.GetString("start_date"), result.GetString("end_date"), result.GetDouble("e_price"), result.GetDouble("w_price"), result.GetDouble("s_price"), result.GetDouble("r_price"), result.GetString("status")));
                 }
             }
             connection.Close();
@@ -27,7 +27,7 @@ namespace DAL
         public Room? GetRoomById(string id)
         {
             connection.Open();
-            query = @"select * from room where rom_id = @id";
+            query = @"select * from room where room_id = @id";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.Add(new MySqlParameter("@id", id));
             try
@@ -36,7 +36,7 @@ namespace DAL
                 Room room = new Room();
                 while (reader.Read())
                 {
-                    room.room_id = reader.GetString("rom_id");
+                    room.room_id = reader.GetString("room_id");
                     room.start_date = reader.GetString("start_date");
                     room.end_date = reader.GetString("end_date");
                     room.electricity_price = reader.GetDouble("e_price");
@@ -61,7 +61,7 @@ namespace DAL
         public void AddRoom(string id, string start_date, string end_date, double room_price, double e_price, double w_price, double s_price, string status)
         {
             connection.Open();
-            query = @"INSERT INTO `motel_managment`.`room` (`rom_id`, `start_date`, `end_date`, `e_price`, `w_price`, `s_price`, `status`, `r_price`) VALUES (@id, @s_date, @e_date, @e_price, @w_price, @s_price, @status, @r_price)"; MySqlCommand command = new MySqlCommand(query, connection);
+            query = @"INSERT INTO `motel_managment`.`room` (`room_id`, `start_date`, `end_date`, `e_price`, `w_price`, `s_price`, `status`, `r_price`) VALUES (@id, @s_date, @e_date, @e_price, @w_price, @s_price, @status, @r_price)"; MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.Add(new MySqlParameter("@id", id));
             command.Parameters.Add(new MySqlParameter("@s_date", start_date));
             command.Parameters.Add(new MySqlParameter("@e_date", end_date));
@@ -76,7 +76,7 @@ namespace DAL
         public string MaxId()
         {
             connection.Open();
-            query = "select max(rom_id) as id from motel_managment.room;";
+            query = "select max(room_id) as id from motel_managment.room;";
             MySqlCommand command = new MySqlCommand(query, connection);
             string id = "0";
             try
@@ -99,7 +99,7 @@ namespace DAL
         public bool DeleteRoom(string id)
         {
             connection.Open();
-            query = @"delete from room where rom_id = @id";
+            query = @"delete from room where room_id = @id";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.Add("id", MySqlDbType.VarChar).Value = id;
             try

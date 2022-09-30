@@ -33,7 +33,7 @@ namespace DAL
         public List<Person> GetAllPeopleInRoom(string room_id) {
             List<Person> list_people_in_room = new List<Person>();
             connection.Open();
-            query = @"SELECT * FROM motel_managment.people where rom_id = @room_id;";
+            query = @"SELECT * FROM motel_managment.people where room_id = @room_id;";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.Add("@room_id", MySqlDbType.VarChar).Value = room_id;
             using var result = command.ExecuteReader();
@@ -65,9 +65,9 @@ namespace DAL
             return list_people_in_room;
         }
         
-        public bool AddPerson(string admin_id, string name, string address, string phone, string username, string password, string room_id) {
+        public bool AddPerson(string person_id, string name, string address, string phone, string username, string password, string room_id) {
             connection.Open();
-            query = $"INSERT INTO `motel_managment`.`people` (`admin_id`, `admin_name`, `admin_address`, `admin_phone_number`, `username`, `password`, `describe`, `rom_id`) VALUES ({admin_id}, {name}, {address}, {phone}, {username}, {password}, 'custom', {room_id})";
+            query = $"INSERT INTO `motel_managment`.`people` (`person_id`, `person_name`, `person_address`, `person_phone_number`, `username`, `password`, `describe`, `room_id`) VALUES ({person_id}, {name}, {address}, {phone}, {username}, {password}, 'custom', {room_id})";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.ExecuteReader();
             connection.Close();
@@ -76,7 +76,7 @@ namespace DAL
         public string MaxId()
         {
             connection.Open();
-            query = "select max(admin_id) as id from motel_managment.people;";
+            query = "select max(person_id) as id from motel_managment.people;";
             MySqlCommand command = new MySqlCommand(query, connection);
             string id = "0";
             try
@@ -100,7 +100,7 @@ namespace DAL
         public bool DeletePerson(string id)
         {
             connection.Open();
-            query = @"delete from people where admin_id = @id";
+            query = @"delete from people where person_id = @id";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.Add("id", MySqlDbType.VarChar).Value = id;
             try
@@ -120,14 +120,14 @@ namespace DAL
         internal Person GetPerson(MySqlDataReader reader)
         {
             Person person = new Person();
-            person.EmpNo = reader.GetString("admin_id");
-            person.Name = reader.GetString("admin_name");
-            person.Address = reader.GetString("admin_address");
-            person.PhoneNumber = reader.GetString("admin_phone_number");
+            person.EmpNo = reader.GetString("person_id");
+            person.Name = reader.GetString("person_name");
+            person.Address = reader.GetString("person_address");
+            person.PhoneNumber = reader.GetString("person_phone_number");
             person.username = reader.GetString("username");
             person.password = reader.GetString("password");
             person.describe = reader.GetString("describe");
-            person.rom_id = reader.GetString("rom_id");
+            person.rom_id = reader.GetString("room_id");
             return person;
         }
     } 
