@@ -22,11 +22,11 @@ namespace GUI
                 {
                     case 1:
                         Clear();
-                        foreach (var i in roomDB.GetAllRoom())
-                        {
-                            i.Short_DL();
-                        }
-                        string[] s_list = { "Vào phòng", "Thêm phòng", "Trở về màn hình trước" };
+                        // foreach (var i in roomDB.GetAllRoom())
+                        // {
+                        //     i.Short_DL();
+                        // }
+                        string[] s_list = { "Xem chi tiết phòng", "Thêm phòng", "Trở về màn hình trước" };
                         int s_choice = menu_Item.Menu("", s_list);
 
                         if (s_choice == 1)
@@ -46,8 +46,9 @@ namespace GUI
                             }
                             else
                             {
+                                Clear();
                                 room.Show_Room();
-                                string[] m_list = { "Xem người trong phòng", "Trở về màn hình trước" };
+                                string[] m_list = { "Xem người trong phòng","Thay đổi thông tin phòng", "Trở về màn hình trước" };
                                 int m_choice = menu_Item.Menu("", m_list);
                                 switch (m_choice)
                                 {
@@ -58,22 +59,23 @@ namespace GUI
                                         {
                                             item.ShowI4();
                                         }
-                                        string[] n_list = { "Xóa người", "Trở về màn hình trước" };
+                                        string[] n_list = { "Người thuê rời phòng", "Trở về màn hình trước" };
                                         int n_choice = menu_Item.Menu("", n_list);
                                         switch (n_choice)
                                         {
                                             case 1:
                                                 // Xoa nguoi
-                                                Write("Nhập id người cần xóa: ");
+                                                Clear();
+                                                Write("Nhập mã người rời phòng: ");
                                                 string p_id = ReadLine() ?? "";
                                                 bool s_check = personDB.DeletePerson(p_id);
                                                 if (s_check)
                                                 {
-                                                    WriteLine("Xóa thành công");
+                                                    WriteLine("Đã chuyển thành công");
                                                 }
                                                 else
                                                 {
-                                                    WriteLine("Xóa thất bại");
+                                                    WriteLine("Chuyển thất bại");
                                                 }
                                                 Clear();
                                                 break;
@@ -83,6 +85,28 @@ namespace GUI
                                         }
                                         break;
                                     case 2:
+                                        // Sửa thông tin của phòng
+                                        Clear();
+                                        WriteLine($"\n\tThay đổi thông tin phòng số: {room.room_id}\n"); 
+                                        Write("Giá phòng: ");
+                                        double room_price = double.Parse(Console.ReadLine()?? "3000000");
+                                        Write("Giá điện: ");
+                                        double e_price = double.Parse(Console.ReadLine()?? "3500");
+                                        Write("Giá nước: ");
+                                        double w_price = double.Parse(Console.ReadLine()?? "30000");
+                                        Write("Giá dịch vụ: ");
+                                        double service_price = double.Parse(Console.ReadLine()?? "100000");
+                                        bool succ = roomDB.FixRoom(id, room_price, e_price, w_price, service_price);
+                                        if (succ)
+                                        {
+                                            Console.WriteLine("Thay đổi thành công");
+                                        }
+                                        else {
+                                            Console.WriteLine("Thay đổi không thành công");
+                                        }
+                                        
+                                    break;
+                                    case 3:
                                         Clear();
                                         break;
                                     default:
@@ -109,8 +133,16 @@ namespace GUI
                             double w_price = double.Parse(ReadLine() ?? "");
                             Write("Giá dịch vụ: ");
                             double s_price = double.Parse(ReadLine() ?? "");
-                            Write("Trạng thái: ");
-                            string status = ReadLine() ?? "";
+                            Write("Trạng thái: 1-cho thuê  2-để trống: ");
+                            string status ="trong";
+                            string c = ReadLine()??"2";
+                            if (c == "1")
+                            {
+                                    status = "used";
+                            }
+                            else if (c == "2") {
+                                status = "trong";
+                            }
                             roomDB.AddRoom(id.ToString(), s_date, e_date, r_price, e_price, w_price, s_price, status);
                             WriteLine("Thêm phòng thành công");
                         }
@@ -121,7 +153,7 @@ namespace GUI
                         break;
                     case 2:
                         string title = "";
-                        string[] a_list = { "Thêm khách hàng", "Xóa khách hàng", "Trở về màn hình trước" };
+                        string[] a_list = { "Thêm khách hàng thuê", "Chuyển khách hàng thuê khỏi danh sách thuê", "Trở về màn hình trước" };
                         bool exit = false;
                         while (true)
                         {
@@ -162,16 +194,16 @@ namespace GUI
                                     }
                                     break;
                                 case 2:
-                                    Write("Nhập mã khách hàng cần xóa: ");
+                                    Write("Nhập mã khách hàng cần cần chuyển: ");
                                     string a_id = ReadLine() ?? "";
                                     bool a_check = personDB.DeletePerson(a_id);
                                     if (a_check)
                                     {
-                                        WriteLine("Xóa thành công");
+                                        WriteLine("chuyển thành công");
                                     }
                                     else
                                     {
-                                        WriteLine("Xoá thất bại");
+                                        WriteLine("chuyển thất bại");
                                     }
                                     break;
                                 case 3:
@@ -221,12 +253,8 @@ namespace GUI
 
             WriteLine("=======================================================\n");
             WriteLine("      Bạn đã đăng nhập với tên " + person.Name + "\n");
-            WriteLine("      Bạn đang ở phòng số {0}\n", person.rom_id);
-            WriteLine("      Ngày thuê: {0} Ngày kết thúc: {1}\n", room.start_date, room.end_date);
-            WriteLine($"      Giá phòng: {room.room_price}VNĐ\tGiá điện: {room.electricity_price}VNĐ\tGiá nước: {room.water_price}VNĐ\tGiá dịch vụ: {room.service_price}VNĐ\n");
-            WriteLine("      Thánh toán 3 tháng tiền nhà và dịch vụ 1 lần, tiền điện nước thanh toán cuối tháng\n");
-            WriteLine($"      Số điện đã sử dụng: {room.GetBill()[0]}\t\tSố nước đã sử dụng: {room.GetBill()[1]}\n");
-            WriteLine("      Tổng tiền phải thanh toán: " + room.GetBill()[2] + " VNĐ\n");
+            WriteLine("Phòng số: " + room.room_id);
+            room.Show_Room_Custom();
             int choice = menu_Item.Menu("", list);
             switch (choice)
             {

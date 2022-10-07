@@ -67,8 +67,15 @@ namespace DAL
         
         public bool AddPerson(string person_id, string name, string address, string phone, string username, string password, string room_id) {
             connection.Open();
-            query = $"INSERT INTO `motel_managment`.`people` (`person_id`, `person_name`, `person_address`, `person_phone_number`, `username`, `password`, `describe`, `room_id`) VALUES ({person_id}, {name}, {address}, {phone}, {username}, {password}, 'custom', {room_id})";
-            MySqlCommand command = new MySqlCommand(query, connection);
+            query = $"INSERT INTO `motel_managment`.`people` (`person_id`, `person_name`, `person_address`, `person_phone_number`, `username`, `password`, `describe`, `room_id`) VALUES (@person_id, @name, @address, @phone, @username, @password, 'custom', @room_id)";
+            MySqlCommand command = new MySqlCommand(query, @connection);
+            command.Parameters.Add("person_id", MySqlDbType.VarChar).Value = person_id;
+            command.Parameters.Add("name", MySqlDbType.VarChar).Value = name;
+            command.Parameters.Add("address", MySqlDbType.VarChar).Value = address;
+            command.Parameters.Add("phone", MySqlDbType.VarChar).Value = phone;
+            command.Parameters.Add("username", MySqlDbType.VarChar).Value = username;
+            command.Parameters.Add("password", MySqlDbType.VarChar).Value = password;
+            command.Parameters.Add("room_id", MySqlDbType.VarChar).Value = room_id;
             command.ExecuteReader();
             connection.Close();
             return true;

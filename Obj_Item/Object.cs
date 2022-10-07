@@ -58,8 +58,9 @@ namespace Obj_Item
                     choice = Int16.Parse(ReadLine() ?? "");
                 }
                 catch
-                {
+                {   
                     WriteLine("Bạn chọn không hợp lệ !");
+                    
                 }
             }
             while (choice <= 0 || choice > menuItem.Length);
@@ -111,6 +112,14 @@ namespace Obj_Item
         {
             Random random = new Random();
             double[] result = new double[3];
+
+            if (this.status == "trong") {
+                result[0] = 0;
+                result[1] = 0;
+                result[2] = 0;
+                return result;
+            }
+
             double number_electricity_used = Math.Floor(random.NextDouble()* 100);
             double number_water_used = Math.Floor(random.NextDouble()* 10);
             double total = this.room_price*3 + this.service_price*3 + this.electricity_price*number_electricity_used + this.water_price*number_water_used;
@@ -125,14 +134,27 @@ namespace Obj_Item
         }
         public void Show_Room()
         {
+            double[] used = new double[3]{GetBill()[0], GetBill()[1], GetBill()[2]};
+
             WriteLine("\n----------------------------------------------");
             WriteLine("Phòng: " + this.room_id);
             WriteLine($"\nGiá điện: {this.electricity_price} VNĐ/số    Giá nước: {this.water_price} VNĐ/khối    Giá dịch vụ: {this.service_price} VNĐ    Giá phòng: {this.room_price} VNĐ/phòng");
             WriteLine("\nNgày thuê: {0, -15} Ngày kết thúc: {1}", this.start_date, this.end_date);
+            WriteLine($"\nSố điện và số nước sử dụng từ {this.start_date} đến {DateTime.Now.ToString("dd/MM/yyyy")}");
             WriteLine($"\nSố điện sử dụng: {GetBill()[0]}\t Số nước sử dụng: {GetBill()[1]}");
-            WriteLine($"\nTổng tiền: {GetBill()[2]} VNĐ\n");
+            WriteLine($"\nTiền điện: {used[0]*this.electricity_price} VND   Tiền nước: {used[1]*this.water_price} VND Tổng tiền: {used[2]} VNĐ");
+        }
+
+        public void Show_Room_Custom()
+        {
+            double[] used = new double[3]{GetBill()[0], GetBill()[1], GetBill()[2]};
+            WriteLine($"\nGiá điện: {this.electricity_price} VNĐ/số    Giá nước: {this.water_price} VNĐ/khối    Giá dịch vụ: {this.service_price} VNĐ    Giá phòng: {this.room_price} VNĐ/phòng");
+            WriteLine("\nNgày thuê: {0, -15} Ngày kết thúc: {1}", this.start_date, this.end_date);
+            WriteLine($"\nSố điện và số nước sử dụng từ {this.start_date} đến {DateTime.Now.ToString("dd/MM/yyyy")}");
+            WriteLine($"\nSố điện sử dụng: {GetBill()[0]}\t Số nước sử dụng: {GetBill()[1]}");
+            WriteLine($"\nTiền điện: {used[0]*this.electricity_price} VND   Tiền nước: {used[1]*this.water_price} VND Tổng tiền: {used[2]} VNĐ");
         }
 
     }
 
-}
+}   

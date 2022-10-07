@@ -11,7 +11,7 @@ namespace DAL
         {
             List<Room> list_room = new List<Room>();
             connection.Open();
-            query = @"select * from room";
+            query = @"select * from motel_managment.room";
             MySqlCommand command = new MySqlCommand(query, connection);
             using var result = command.ExecuteReader();
             if (result.HasRows)
@@ -96,12 +96,17 @@ namespace DAL
                 connection.Close();
             }
         }
-        public bool DeleteRoom(string id)
+        public bool FixRoom(string id, double room_price, double e_price, double w_price, double service_price)
         {
             connection.Open();
-            query = @"delete from room where room_id = @id";
+            query = @"UPDATE `motel_managment`.`room` SET `e_price` = @e_price, `w_price` = @w_price, `s_price` = @service_price, `r_price` = @room_price WHERE (`room_id` = @id);";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.Add("id", MySqlDbType.VarChar).Value = id;
+            command.Parameters.Add("room_price", MySqlDbType.Double).Value = room_price;
+            command.Parameters.Add("e_price", MySqlDbType.Double).Value = e_price;
+            command.Parameters.Add("w_price", MySqlDbType.Double).Value = w_price;
+            command.Parameters.Add("service_price", MySqlDbType.Double).Value = service_price;
+
             try
             {
                 command.ExecuteReader();
@@ -109,7 +114,6 @@ namespace DAL
             }
             catch
             {
-                Console.WriteLine("Phòng không tồn tại");
                 return false;
             }
             finally
